@@ -1,10 +1,13 @@
 package com.github.pingia.mvpcodegen;
 
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.processing.Filer;
 import javax.tools.JavaFileObject;
@@ -66,7 +69,8 @@ public class MvpApiGenerateHelper {
     private Writer getJavaFileWriter(String fileNameNoSuffix, String pkgName) throws IOException{
         if(!isAptSourcePath) {
             String finalSourceFileDir = outputJavaSrcDirPath + '/' + pkgName.replaceAll("\\.","/");
-            return new FileWriter(Utils.createFileNotExists(finalSourceFileDir, fileNameNoSuffix+".java"));
+            File file = Utils.createFileNotExists(finalSourceFileDir, fileNameNoSuffix+".java");
+            return new BufferedWriter (new OutputStreamWriter(new FileOutputStream(file,false), StandardCharsets.UTF_8));
         }else{
             JavaFileObject jfo = mFiler.createSourceFile(pkgName+"." + fileNameNoSuffix);
             boolean deleteSuc;
