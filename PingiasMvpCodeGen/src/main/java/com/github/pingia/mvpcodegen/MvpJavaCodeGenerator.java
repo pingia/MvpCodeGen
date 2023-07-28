@@ -22,7 +22,7 @@ public class MvpJavaCodeGenerator extends AbstractApiCodeGenerator{
     public void generate() throws IOException{
         try {
 
-            Configuration config = new Configuration(Configuration.getVersion());
+            Configuration config = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
             config.setClassLoaderForTemplateLoading(getClass().getClassLoader(), "ftl");
             config.setDefaultEncoding("utf-8");
 //            config.setDirectoryForTemplateLoading(new File("/ftl"));
